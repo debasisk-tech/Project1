@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101426">
+  <title>Gallery · Hello, world!</title>
+  <style>
+    :root { color-scheme: dark; --ink:#f7f7ff; --muted:#b7bdd5; --glass:rgba(255,255,255,.09); }
+    * { box-sizing:border-box; }
+    body { min-height:100vh; margin:0; padding:6.5rem 1rem 3rem; color:var(--ink); font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:radial-gradient(ellipse at 18% 18%,rgba(99,102,241,.30),transparent 38%),radial-gradient(ellipse at 82% 78%,rgba(20,184,166,.20),transparent 36%),linear-gradient(135deg,#101426,#17152d 55%,#101c2c); }
+    body::before,body::after { content:""; position:fixed; z-index:-1; width:24rem; aspect-ratio:1; border:1px solid rgba(255,255,255,.08); border-radius:50%; pointer-events:none; }
+    body::before { top:-12rem; right:-8rem; box-shadow:0 0 0 2.5rem rgba(255,255,255,.018),0 0 0 5rem rgba(255,255,255,.014); }
+    body::after { bottom:-17rem; left:-10rem; width:32rem; box-shadow:0 0 0 3rem rgba(255,255,255,.018); }
+    nav { position:fixed; z-index:2; top:1.25rem; left:50%; display:flex; gap:.35rem; padding:.4rem; transform:translateX(-50%); border:1px solid rgba(255,255,255,.12); border-radius:999px; background:rgba(16,20,38,.82); backdrop-filter:blur(14px); }
+    nav a { padding:.6rem .9rem; border-radius:999px; color:var(--muted); font-size:.9rem; text-decoration:none; transition:color .2s,background .2s; }
+    nav a:hover,nav a[aria-current="page"] { color:var(--ink); background:rgba(255,255,255,.11); }
+    main { position:relative; width:min(100%,1050px); margin:0 auto; padding:clamp(1.5rem,5vw,3.5rem); border:1px solid rgba(255,255,255,.16); border-radius:28px; background:var(--glass); box-shadow:0 24px 80px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.12); backdrop-filter:blur(18px); animation:rise .8s cubic-bezier(.2,.8,.2,1) both; }
+    .eyebrow { margin:0 0 .8rem; color:#a5f3e8; font-size:.75rem; font-weight:750; letter-spacing:.2em; text-transform:uppercase; }
+    h1 { margin:0; font-size:clamp(2.8rem,8vw,5.5rem); line-height:1; letter-spacing:-.07em; }
+    h1 span { color:transparent; background:linear-gradient(90deg,#c4b5fd,#67e8d3); background-clip:text; -webkit-background-clip:text; }
+    .intro { max-width:42rem; margin:1.2rem 0 2rem; color:var(--muted); font-size:1.1rem; line-height:1.7; }
+    .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; }
+    figure { position:relative; min-height:210px; margin:0; overflow:hidden; display:flex; align-items:flex-end; padding:1.25rem; border:1px solid rgba(255,255,255,.14); border-radius:20px; background:#25264b; isolation:isolate; }
+    figure::before { content:""; position:absolute; z-index:-1; inset:0; background:var(--art); transition:transform .45s cubic-bezier(.2,.8,.2,1); }
+    figure:hover::before { transform:scale(1.07); }
+    figure::after { content:""; position:absolute; z-index:-1; inset:35% 0 0; background:linear-gradient(transparent,rgba(8,11,25,.82)); }
+    figcaption { font-weight:650; text-shadow:0 1px 8px rgba(0,0,0,.45); }
+    .art-one { --art:radial-gradient(circle at 68% 34%,#fde68a 0 7%,transparent 7.5%),linear-gradient(155deg,transparent 45%,#254252 45% 59%,#15283f 59%),linear-gradient(130deg,#f5a6a0,#a277bc 53%,#3d527b); }
+    .art-two { --art:radial-gradient(ellipse at 47% 42%,#f9c87a 0 8%,transparent 8.5%),radial-gradient(ellipse at 50% 110%,#1d5555 0 34%,transparent 34.5%),linear-gradient(150deg,#7ed9c7,#5579a4 58%,#36365d); }
+    .art-three { --art:radial-gradient(circle at 72% 30%,#fff0bf 0 6%,transparent 6.5%),linear-gradient(35deg,transparent 42%,#d88d83 42% 49%,transparent 49.5%),linear-gradient(150deg,#99d7d1,#786fbd 56%,#252c56); }
+    .art-four { --art:radial-gradient(ellipse at 50% 62%,#ffb36b 0 11%,transparent 11.5%),linear-gradient(165deg,transparent 50%,#2b4960 50% 65%,#14293e 65%),linear-gradient(135deg,#f5c17b,#ed8d83 50%,#7d5d92); }
+    .art-five { --art:radial-gradient(ellipse at 28% 35%,rgba(255,255,255,.82) 0 2%,transparent 2.5%),radial-gradient(ellipse at 72% 48%,rgba(255,255,255,.65) 0 1.5%,transparent 2%),radial-gradient(ellipse at 58% 24%,#e9d2ff 0 6%,transparent 6.5%),linear-gradient(150deg,#253868,#5764a0 55%,#b276a5); }
+    .art-six { --art:radial-gradient(ellipse at 52% 64%,#a5f3df 0 9%,transparent 9.5%),radial-gradient(ellipse at 50% 110%,#244d5d 0 37%,transparent 37.5%),linear-gradient(155deg,#f6c5a2,#d98fa7 50%,#726aab); }
+    @keyframes rise { from { opacity:0; transform:translateY(18px) scale(.98); } to { opacity:1; transform:translateY(0) scale(1); } }
+    @media (max-width:700px) { .grid { grid-template-columns:repeat(2,minmax(0,1fr)); } figure { min-height:180px; } }
+    @media (max-width:460px) { nav { gap:0; } nav a { padding:.55rem .62rem; font-size:.82rem; } .grid { grid-template-columns:1fr; } figure { min-height:220px; } }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; } }
+  </style>
+</head>
+<body>
+  <nav aria-label="Main navigation"><a href="index.html">Home</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="gallery.html" aria-current="page">Gallery</a></nav>
+  <main>
+    <p class="eyebrow">A collection of moments</p>
+    <h1>Little <span>inspirations.</span></h1>
+    <p class="intro">A few colorful scenes to spark your imagination. These abstract gallery cards are drawn entirely with CSS, so they load instantly and need no external images.</p>
+    <section class="grid" aria-label="Abstract art gallery">
+      <figure class="art-one"><figcaption>Golden hour</figcaption></figure>
+      <figure class="art-two"><figcaption>Quiet waters</figcaption></figure>
+      <figure class="art-three"><figcaption>Soft horizons</figcaption></figure>
+      <figure class="art-four"><figcaption>Last light</figcaption></figure>
+      <figure class="art-five"><figcaption>After the rain</figcaption></figure>
+      <figure class="art-six"><figcaption>New growth</figcaption></figure>
+    </section>
+  </main>
+</body>
+</html>
